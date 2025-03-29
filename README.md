@@ -22,12 +22,10 @@ A gentle productivity app built for neurodivergent, chronically ill, and overthi
 ## 🔗 Try It Live
 
 🔹 **Landing Page:**  
-[https://yourusername.github.io/3TASKS/](https://yourusername.github.io/3TASKS/)
+[https://keirajcoder.github.io/3Tasks/](https://keirajcoder.github.io/3Tasks/)
 
 🔹 **App Direct Link:**  
-[https://yourusername.github.io/3TASKS/app/](https://yourusername.github.io/3TASKS/app/)
-
-> Replace `yourusername` with your actual GitHub username if you haven't already!
+[https://keirajcoder.github.io/3Tasks/app/](https://keirajcoder.github.io/3Tasks/app/)
 
 ---
 
@@ -36,12 +34,12 @@ A gentle productivity app built for neurodivergent, chronically ill, and overthi
 **Spoons** is a Progressive Web App (PWA). This means you can install it on your device, just like a native app, **without needing to go through an app store**.
 
 ### On **Mobile (iOS + Android)**:
-1. Open the app link (e.g., `https://yourusername.github.io/3TASKS/app/`)
+1. Open the app link (e.g., `https://keirajcoder.github.io/3Tasks/app/`)
 2. Tap the **Share** button → **Add to Home Screen**
 3. The app will install with its own icon, ready to use!
 
 ### On **Desktop (Chrome/Edge)**:
-1. Open the app link (e.g., `https://yourusername.github.io/3TASKS/app/`)
+1. Open the app link (e.g., `https://keirajcoder.github.io/3Tasks/app/`)
 2. Click the **Install icon** in the address bar or select **Install App** from the options menu
 3. The app opens in its own window, just like a native app
 
@@ -52,9 +50,10 @@ A gentle productivity app built for neurodivergent, chronically ill, and overthi
 To run it locally:
 
 ```bash
-git clone https://github.com/yourusername/3TASKS.git
-cd 3TASKS
-open app/index.html 
+git clone https://github.com/keirajcoder/3Tasks.git
+cd 3Tasks
+open app/index.html
+
 ```
 
 ## 💜 Made with love
