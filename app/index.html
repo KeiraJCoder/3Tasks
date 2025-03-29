@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MicroTasks</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>MicroTasks</h1>
+    <p>Only 3 tasks per day. Stay focused.</p>
+
+    <form id="task-form">
+      <input type="text" id="task-input" placeholder="New task..." maxlength="80" required>
+      <button type="submit">Add</button>
+    </form>
+
+    <ul id="task-list"></ul>
+
+    <div id="settings-toggle">⚙️ Settings</div>
+    <div id="settings" class="hidden">
+      <label>
+        <input type="checkbox" id="confetti-toggle" disabled>
+        Celebrate on completion (Pro)
+      </label>
+      <label>
+        <input type="time" id="reset-time" value="00:00" disabled>
+        Daily reset time (Pro)
+      </label>
+      <label>
+        <input type="checkbox" id="dark-mode-toggle">
+        Dark Mode
+      </label>
+      <button id="unlock-pro">Unlock Pro</button>
+    </div>
+
+    <div id="toast" class="toast hidden">Well done! You completed today’s tasks 🎉</div>
+  </div>
+
+  <canvas id="confetti-canvas"></canvas>
+
+  <script src="confetti.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
