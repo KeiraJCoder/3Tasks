@@ -54,8 +54,8 @@ To run it locally:
 ```bash
 git clone https://github.com/yourusername/3TASKS.git
 cd 3TASKS
-open app/index.html
-
+open app/index.html 
+```
 
 ## 💜 Made with love
 
