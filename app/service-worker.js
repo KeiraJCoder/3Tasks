@@ -8,11 +8,16 @@ self.addEventListener('install', event => {
           './script.js',
           './confetti.js',
           './manifest.json',
-          './icon-192.png', 
+          './icon-192.png',
           './icon-512.png'
         ]);
       })
     );
+  });
+  
+  // ✅ Immediately take control
+  self.addEventListener('activate', event => {
+    event.waitUntil(self.clients.claim());
   });
   
   self.addEventListener('fetch', event => {
