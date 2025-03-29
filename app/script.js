@@ -259,7 +259,7 @@ settingsToggle.addEventListener('click', () => settings.classList.toggle('hidden
 unlockBtn.addEventListener('click', unlockPro);
 
 checkReset();
-showMotivationPrompt(); // TEMPORARY: forces the motivation modal
+// showMotivationPrompt(); // TEMPORARY: forces the motivation modal
 
 renderTasks();
 renderCustomSelfCare();
