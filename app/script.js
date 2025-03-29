@@ -12,20 +12,21 @@ const unlockBtn = document.getElementById('unlock-pro');
 const toast = document.getElementById('toast');
 const darkModeToggle = document.getElementById('dark-mode-toggle');
 const spoonDisplay = document.getElementById('spoon-display');
-const spoonBar = document.getElementById('spoon-bar');
+const spoonCountSpan = document.getElementById('spoon-count');
 const selfCareContainer = document.querySelector('.self-care-tasks');
+
+// Custom Self-Care Form Elements
 const customForm = document.getElementById('custom-self-care-form');
 const customTaskInput = document.getElementById('custom-task-text');
 const customTaskReward = document.getElementById('custom-task-reward');
-const toggleCustomTaskBtn = document.getElementById('toggle-custom-task-form');
 
 /* ---------------------------------- */
 /* 🧠 State Initialisation */
 /* ---------------------------------- */
-let spoonCount = parseInt(localStorage.getItem('spoonCount'), 10) || 0;
+let spoonCount = parseInt(localStorage.getItem('spoonCount')) || 0;
 let tasks = JSON.parse(localStorage.getItem('spoons-tasks')) || [];
-let customSelfCare = JSON.parse(localStorage.getItem('customSelfCare')) || [];
 let lastReset = localStorage.getItem('lastReset') || '';
+let customSelfCare = JSON.parse(localStorage.getItem('customSelfCare')) || [];
 let pendingTaskText = '';
 
 /* ---------------------------------- */
@@ -44,7 +45,7 @@ function renderTasks() {
   tasks.forEach((task, i) => {
     const li = document.createElement('li');
     li.className = task.completed ? 'completed' : '';
-    li.draggable = true;
+    li.setAttribute('draggable', 'true');
     li.innerHTML = `
       <span>${task.text}</span>
       <div>
@@ -66,10 +67,11 @@ function addTask(e) {
 }
 
 function setDifficulty(spoons) {
+  document.getElementById('difficulty-modal').classList.add('hidden');
+
   tasks.push({ text: pendingTaskText, completed: false, spoons });
   pendingTaskText = '';
   saveTasks();
-  document.getElementById('difficulty-modal').classList.add('hidden');
 }
 
 function toggleTask(index) {
@@ -81,14 +83,17 @@ function toggleTask(index) {
     return;
   }
 
+  const wasAllComplete = tasks.length && tasks.every(t => t.completed);
   task.completed = !task.completed;
+
   spoonCount += task.completed ? -cost : cost;
 
   localStorage.setItem('spoonCount', spoonCount);
   updateSpoonDisplay();
   saveTasks();
 
-  if (tasks.every(t => t.completed) && confettiToggle.checked) {
+  const isAllComplete = tasks.length && tasks.every(t => t.completed);
+  if (!wasAllComplete && isAllComplete && confettiToggle.checked) {
     startConfetti();
     setTimeout(stopConfetti, 3000);
     showToast();
@@ -101,7 +106,7 @@ function deleteTask(index) {
 }
 
 function saveTasks() {
-  localStorage.setItem('spoons-tasks', JSON.stringify(tasks));
+  localStorage.setItem('microtasks', JSON.stringify(tasks));
   renderTasks();
 }
 
@@ -117,31 +122,48 @@ function completeSelfCare(button, reward) {
 }
 
 function renderCustomSelfCare() {
-  selfCareContainer.innerHTML = '';
   customSelfCare.forEach(({ text, reward }) => {
     const btn = document.createElement('button');
     btn.className = 'self-care-btn';
     btn.textContent = text;
-    btn.onclick = () => completeSelfCare(btn, reward);
+    btn.onclick = function () {
+      completeSelfCare(this, reward);
+    };
     selfCareContainer.appendChild(btn);
   });
 }
 
-customForm.addEventListener('submit', (e) => {
+/* ---------------------------------- */
+/* ➕ Custom Self-Care Handling */
+/* ---------------------------------- */
+customForm?.addEventListener('submit', (e) => {
   e.preventDefault();
   const text = customTaskInput.value.trim();
   const reward = parseInt(customTaskReward.value, 10);
   if (!text || isNaN(reward)) return;
 
-  customSelfCare.push({ text, reward });
+  const newTask = { text, reward };
+  customSelfCare.push(newTask);
   localStorage.setItem('customSelfCare', JSON.stringify(customSelfCare));
-  renderCustomSelfCare();
+
+  const btn = document.createElement('button');
+  btn.className = 'self-care-btn';
+  btn.textContent = text;
+  btn.onclick = function () {
+    completeSelfCare(this, reward);
+  };
+  selfCareContainer.appendChild(btn);
 
   customTaskInput.value = '';
   customTaskReward.value = 1;
 });
 
-toggleCustomTaskBtn.addEventListener('click', () => customForm.classList.toggle('hidden'));
+const toggleCustomTaskBtn = document.getElementById('toggle-custom-task-form');
+
+toggleCustomTaskBtn?.addEventListener('click', () => {
+  customForm.classList.toggle('hidden');
+});
+
 
 /* ---------------------------------- */
 /* 🔄 Spoon and Motivation Logic */
@@ -151,15 +173,18 @@ function showMotivationPrompt() {
 }
 
 function setMotivation(level) {
-  spoonCount = { low: 10, medium: 15, high: 20 }[level] || 10;
+  const values = { low: 10, medium: 15, high: 20 };
+  spoonCount = values[level] || 0;
   localStorage.setItem('spoonCount', spoonCount);
   updateSpoonDisplay();
+
   document.getElementById('motivation-modal').classList.add('hidden');
   spoonDisplay.classList.remove('hidden');
 }
 
 function updateSpoonDisplay() {
-  spoonBar.innerHTML = '🥄'.repeat(spoonCount);
+  const bar = document.getElementById('spoon-bar');
+  bar.innerHTML = '🥄'.repeat(spoonCount);
 }
 
 function checkReset() {
@@ -167,27 +192,66 @@ function checkReset() {
   if (now !== lastReset) {
     tasks = [];
     localStorage.setItem('spoons-tasks', JSON.stringify(tasks));
-    showMotivationPrompt();
+
+    // Prompt motivation only on new day
+    showMotivationPrompt(); 
+
     lastReset = now;
     localStorage.setItem('lastReset', lastReset);
   } else {
+    spoonCount = parseInt(localStorage.getItem('spoonCount')) || 0;
     updateSpoonDisplay();
     spoonDisplay.classList.remove('hidden');
   }
 }
 
+
 /* ---------------------------------- */
-/* 🥳 Feedback & Settings */
+/* 🥳 Feedback & Visual Effects */
 /* ---------------------------------- */
 function showToast() {
   toast.classList.remove('hidden');
-  setTimeout(() => toast.classList.add('hidden'), 3000);
+  setTimeout(() => {
+    toast.classList.add('hidden');
+  }, 3000);
 }
 
 function unlockPro() {
+  alert("Mock paywall: Imagine you've paid! Features unlocked.");
   confettiToggle.disabled = false;
   resetTime.disabled = false;
-  alert('Pro features unlocked!');
+}
+
+/* ---------------------------------- */
+/* 🌙 Dark Mode Toggle */
+/* ---------------------------------- */
+darkModeToggle.addEventListener('change', () => {
+  document.body.classList.toggle('dark');
+  localStorage.setItem('darkMode', darkModeToggle.checked);
+});
+
+/* ---------------------------------- */
+/* 🧲 Drag-and-Drop Reordering */
+/* ---------------------------------- */
+function enableReordering() {
+  let dragged;
+  list.addEventListener('dragstart', (e) => {
+    dragged = e.target;
+    e.dataTransfer.effectAllowed = 'move';
+  });
+
+  list.addEventListener('dragover', (e) => e.preventDefault());
+
+  list.addEventListener('drop', (e) => {
+    e.preventDefault();
+    if (e.target.tagName === 'LI' && dragged !== e.target) {
+      const children = [...list.children];
+      const fromIndex = children.indexOf(dragged);
+      const toIndex = children.indexOf(e.target);
+      tasks.splice(toIndex, 0, tasks.splice(fromIndex, 1)[0]);
+      saveTasks();
+    }
+  });
 }
 
 /* ---------------------------------- */
@@ -196,12 +260,10 @@ function unlockPro() {
 form.addEventListener('submit', addTask);
 settingsToggle.addEventListener('click', () => settings.classList.toggle('hidden'));
 unlockBtn.addEventListener('click', unlockPro);
-darkModeToggle.addEventListener('change', () => {
-  document.body.classList.toggle('dark');
-  localStorage.setItem('darkMode', darkModeToggle.checked);
-});
 
 checkReset();
+// showMotivationPrompt(); // TEMPORARY: forces the motivation modal
+
 renderTasks();
 renderCustomSelfCare();
 enableReordering();
