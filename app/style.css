@@ -364,18 +364,21 @@ li.completed {
 .custom-task-toggle {
   display: block;
   margin: 1rem auto 0 auto;
-  background: transparent;
+  background: none;
   color: var(--accent);
   font-size: 0.9rem;
   text-decoration: underline;
   border: none;
   cursor: pointer;
-  transition: opacity 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .custom-task-toggle:hover {
-  opacity: 0.75;
+  color: #4a7edb; /* slightly darker blue for hover */
+  background-color: rgb(208, 161, 252);
+  text-decoration: none;
 }
+
 
 
 /* ---------------------------------- */
