@@ -22,7 +22,7 @@ body {
   transition: background 0.3s, color 0.3s;
 }
 
-h1 {
+.head {
   margin-top: 0;
   text-align: center;
 }
