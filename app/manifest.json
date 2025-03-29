@@ -1,7 +1,7 @@
 {
     "name": "Spoons",
     "short_name": "Spoons",
-    "start_url": ".",
+    "start_url": "/3Tasks/app/index.html",
     "display": "standalone",
     "background_color": "#f5f5f5",
     "theme_color": "#6495ed",
