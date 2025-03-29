@@ -1,6 +1,6 @@
 /* Base styles */
 body {
-  font-family: sans-serif;
+  font-family: 'Lexend', sans-serif;
   background: #f9f9f9;
   display: flex;
   justify-content: center;
@@ -128,4 +128,57 @@ body.dark button {
 
 body.dark li {
   background: #2c2c2c;
+}
+
+/* Accent colour (ND-friendly calm blue) */
+:root {
+  --accent: #6495ed; /* soft cornflower blue */
+}
+
+/* Apply accent to buttons and toggles */
+button {
+  background: var(--accent);
+  border: none;
+  color: white;
+  transition: background 0.3s;
+  font-weight: bold;
+}
+
+button:hover {
+  background: #4a7edb;
+}
+
+/* Smooth animations */
+.toast,
+li,
+button,
+input {
+  transition: all 0.3s ease;
+}
+
+/* Task completion animation */
+li.completed {
+  animation: pop 0.2s ease;
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Improved checkbox & settings visuals (optional) */
+#settings label {
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+#settings input[type="checkbox"] {
+  accent-color: var(--accent);
 }
