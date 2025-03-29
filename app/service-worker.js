@@ -3,13 +3,13 @@ self.addEventListener('install', event => {
       caches.open('spoons-cache').then(cache => {
         return cache.addAll([
           './',
-          './app/index.html',
-          './app/style.css',
-          './app/script.js',
-          './app/confetti.js',
-          './app/manifest.json',
-          './app/icon-192.png',  // Add icon-192.png here
-          './app/icon-512.png'   // Add icon-512.png here
+          './index.html',
+          './style.css',
+          './script.js',
+          './confetti.js',
+          './manifest.json',
+          './icon-192.png', 
+          './icon-512.png'
         ]);
       })
     );

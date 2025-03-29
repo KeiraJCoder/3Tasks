@@ -19,6 +19,7 @@ const selfCareContainer = document.querySelector('.self-care-tasks');
 const customForm = document.getElementById('custom-self-care-form');
 const customTaskInput = document.getElementById('custom-task-text');
 const customTaskReward = document.getElementById('custom-task-reward');
+const toggleCustomTaskBtn = document.getElementById('toggle-custom-task-form');
 
 /* ---------------------------------- */
 /* 🧠 State Initialisation */
@@ -158,12 +159,15 @@ customForm?.addEventListener('submit', (e) => {
   customTaskReward.value = 1;
 });
 
-const toggleCustomTaskBtn = document.getElementById('toggle-custom-task-form');
-
 toggleCustomTaskBtn?.addEventListener('click', () => {
   customForm.classList.toggle('hidden');
+  // Change the button text depending on the form's visibility
+  if (customForm.classList.contains('hidden')) {
+    toggleCustomTaskBtn.textContent = '➕ Add Custom Self-Care';
+  } else {
+    toggleCustomTaskBtn.textContent = '➖ Hide Custom Self-Care';
+  }
 });
-
 
 /* ---------------------------------- */
 /* 🔄 Spoon and Motivation Logic */
@@ -204,7 +208,6 @@ function checkReset() {
     spoonDisplay.classList.remove('hidden');
   }
 }
-
 
 /* ---------------------------------- */
 /* 🥳 Feedback & Visual Effects */
@@ -262,8 +265,6 @@ settingsToggle.addEventListener('click', () => settings.classList.toggle('hidden
 unlockBtn.addEventListener('click', unlockPro);
 
 checkReset();
-// showMotivationPrompt(); // TEMPORARY: forces the motivation modal
-
 renderTasks();
 renderCustomSelfCare();
 enableReordering();
