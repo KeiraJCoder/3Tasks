@@ -113,7 +113,8 @@
   <script src="script.js"></script>
   <script>
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('service-worker.js', { scope: './' })
+      navigator.serviceWorker.register('../service-worker.js', { scope: '/3Tasks/' })
+
 
         .then(() => console.log('Service Worker registered'))
         .catch(err => console.log('Service Worker registration failed', err));
