@@ -1,4 +1,7 @@
-/* Base styles */
+/* ---------------------------------- */
+/* 🎨 Base Styles */
+/* ---------------------------------- */
+
 body {
   font-family: 'Lexend', sans-serif;
   background: #f9f9f9;
@@ -24,8 +27,18 @@ h1 {
   text-align: center;
 }
 
+p {
+  display:flex;
+  justify-content:center;
+}
+
+/* ---------------------------------- */
+/* 📝 Task Input Form */
+/* ---------------------------------- */
+
 form {
   display: flex;
+  flex-direction: column;
   gap: 0.5rem;
 }
 
@@ -38,6 +51,10 @@ button {
   padding: 0.5rem 1rem;
   cursor: pointer;
 }
+
+/* ---------------------------------- */
+/* 📋 Task List */
+/* ---------------------------------- */
 
 ul {
   list-style: none;
@@ -59,7 +76,10 @@ li {
   opacity: 0.6;
 }
 
-/* Settings section */
+/* ---------------------------------- */
+/* ⚙️ Settings Panel */
+/* ---------------------------------- */
+
 #settings-toggle {
   margin-top: 1rem;
   cursor: pointer;
@@ -75,11 +95,23 @@ li {
   padding-top: 0.5rem;
 }
 
+#settings label {
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+#settings input[type="checkbox"] {
+  accent-color: var(--accent);
+}
+
 .hidden {
   display: none !important;
 }
 
-/* Toast message */
+/* ---------------------------------- */
+/* 🥳 Toast Notification */
+/* ---------------------------------- */
+
 .toast {
   position: fixed;
   bottom: 1.5rem;
@@ -96,7 +128,10 @@ li {
   transition: opacity 0.3s;
 }
 
-/* Confetti canvas (invisible unless active) */
+/* ---------------------------------- */
+/* 🎉 Confetti Canvas */
+/* ---------------------------------- */
+
 canvas#confetti-canvas {
   position: fixed;
   top: 0;
@@ -107,7 +142,10 @@ canvas#confetti-canvas {
   z-index: 9999;
 }
 
-/* Dark mode */
+/* ---------------------------------- */
+/* 🌒 Dark Mode */
+/* ---------------------------------- */
+
 body.dark {
   background: #121212;
   color: #f0f0f0;
@@ -130,12 +168,19 @@ body.dark li {
   background: #2c2c2c;
 }
 
-/* Accent colour (ND-friendly calm blue) */
+body.dark .modal {
+  background: #1e1e1e;
+  color: #fff;
+}
+
+/* ---------------------------------- */
+/* 🎨 Theme and Transitions */
+/* ---------------------------------- */
+
 :root {
   --accent: #6495ed; /* soft cornflower blue */
 }
 
-/* Apply accent to buttons and toggles */
 button {
   background: var(--accent);
   border: none;
@@ -148,7 +193,6 @@ button:hover {
   background: #4a7edb;
 }
 
-/* Smooth animations */
 .toast,
 li,
 button,
@@ -156,29 +200,187 @@ input {
   transition: all 0.3s ease;
 }
 
-/* Task completion animation */
+/* ---------------------------------- */
+/* ✅ Completion Animation */
+/* ---------------------------------- */
+
 li.completed {
   animation: pop 0.2s ease;
 }
 
 @keyframes pop {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-  100% {
-    transform: scale(1);
-  }
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
 }
 
-/* Improved checkbox & settings visuals (optional) */
-#settings label {
-  display: block;
+/* ---------------------------------- */
+/* 🔀 Reordering Support */
+/* ---------------------------------- */
+
+.sortable-list li {
+  cursor: move;
+}
+
+/* ---------------------------------- */
+/* 🥄 Spoon Display */
+/* ---------------------------------- */
+
+#spoon-display {
+  margin-top: 1rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+#spoon-bar {
+  font-size: 1.25rem;
+  line-height: 1.2;
+  letter-spacing: 0.1rem;
+}
+
+/* ---------------------------------- */
+/* 🧠 Modals (Motivation + Difficulty) */
+/* ---------------------------------- */
+
+.modal {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  z-index: 999;
+  max-width: 90%;
+  text-align: center;
+}
+
+.modal button {
+  margin: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+}
+
+#motivation-modal button {
+  background: #eee;
+  border: 1px solid #ccc;
+  color: #333;
+  font-size: 1.25rem;
+  padding: 0.75rem 1.25rem;
+  margin: 0.5rem;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+#motivation-modal button:hover {
+  background: #ddd;
+  cursor: pointer;
+}
+
+
+.difficulty-options button {
+  font-size: 1.5rem;
+  margin: 0.5rem;
+  padding: 0.75rem 1rem;
+}
+
+/* ---------------------------------- */
+/* 💆 Self-Care Section */
+/* ---------------------------------- */
+
+.self-care {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #ccc;
+}
+
+.self-care h3 {
   margin-bottom: 0.75rem;
+  font-size: 1.1rem;
+  text-align: center;
 }
 
-#settings input[type="checkbox"] {
-  accent-color: var(--accent);
+.self-care-tasks {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.self-care-tasks button {
+  font-size: 0.95rem;
+  padding: 0.5rem 0.75rem;
+  background: #eee;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: all 0.2s ease;
+}
+
+.self-care-tasks button:disabled {
+  opacity: 0.5;
+  cursor: default;
+  text-decoration: line-through;
+}
+
+/* ---------------------------------- */
+/* ➕ Custom Self-Care Task Form */
+/* ---------------------------------- */
+
+#custom-self-care-form {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  max-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+#custom-self-care-form input[type="text"],
+#custom-self-care-form input[type="number"] {
+  width: 100%;
+  padding: 0.5rem;
+}
+
+#custom-self-care-form input[type="number"] {
+  max-width: 60px;
+  text-align: center;
+}
+
+#custom-self-care-form button {
+  width: 100%;
+}
+
+.custom-task-toggle {
+  display: block;
+  margin: 1rem auto 0 auto;
+  background: transparent;
+  color: var(--accent);
+  font-size: 0.9rem;
+  text-decoration: underline;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.custom-task-toggle:hover {
+  opacity: 0.75;
+}
+
+
+/* ---------------------------------- */
+/* 📱 Media Queries */
+/* ---------------------------------- */
+
+@media (max-width: 480px) {
+  form {
+    flex-direction: column;
+  }
 }

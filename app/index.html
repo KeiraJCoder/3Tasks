@@ -1,49 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MicroTasks</title>
-  <link rel="stylesheet" href="style.css">
-  <!-- Lexend Font -->
-<link href="https://fonts.googleapis.com/css2?family=Lexend&display=swap" rel="stylesheet">
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Spoons</title>
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
+  
+  <!-- Confetti Library -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 </head>
 <body>
-  <div class="container">
-    <h1>MicroTasks</h1>
-    <p>Only 3 tasks per day. Stay focused.</p>
 
+  <!-- Main Container -->
+  <div class="container">
+
+    <!-- Header -->
+    <h1>Spoons</h1>
+    <p>Only do what you have the spoons for.</p>
+
+    <!-- Task Input Form -->
     <form id="task-form">
-      <input type="text" id="task-input" placeholder="New task..." maxlength="80" required>
+      <input type="text" id="task-input" placeholder="New task..." maxlength="80" required />
       <button type="submit">Add</button>
     </form>
 
-    <ul id="task-list"></ul>
-
-    <div id="settings-toggle">⚙️ Settings</div>
-    <div id="settings" class="hidden">
-      <label>
-        <input type="checkbox" id="confetti-toggle" disabled>
-        Celebrate on completion (Pro)
-      </label>
-      <label>
-        <input type="time" id="reset-time" value="00:00" disabled>
-        Daily reset time (Pro)
-      </label>
-      <label>
-        <input type="checkbox" id="dark-mode-toggle">
-        Dark Mode
-      </label>
-      <button id="unlock-pro">Unlock Pro</button>
+    <!-- Spoon Display -->
+    <div id="spoon-display" class="spoon-bar hidden">
+      <div id="spoon-bar"></div>
     </div>
 
-    <div id="toast" class="toast hidden">Well done! You completed today’s tasks 🎉</div>
+    <!-- Task List -->
+    <ul id="task-list" class="sortable-list"></ul>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast hidden">Well done! You completed today’s tasks.</div>
+
+<!-- === Self-Care Panel === -->
+<div id="self-care-panel" class="self-care">
+  <h3>Self-Care Tasks</h3>
+  <div class="self-care-tasks">
+    <button class="self-care-btn" onclick="completeSelfCare(this, 1)">🥤 Drink water</button>
+    <button class="self-care-btn" onclick="completeSelfCare(this, 1)">🌬️ Take a deep breath</button>
+    <button class="self-care-btn" onclick="completeSelfCare(this, 1)">🧘 Stretch for 2 minutes</button>
+    <button class="self-care-btn" onclick="completeSelfCare(this, 1)">🌤️ Step outside briefly</button>
   </div>
 
+  <!-- Toggle Button for Custom Task Form -->
+  <button id="toggle-custom-task-form" class="custom-task-toggle">➕ Add Custom Self-Care</button>
+
+  <!-- Hidden Custom Task Form -->
+  <form id="custom-self-care-form" class="hidden">
+    <input type="text" id="custom-task-text" placeholder="e.g. Meditate" required />
+    <input type="number" id="custom-task-reward" min="1" max="5" value="1" required />
+    <button type="submit">Add</button>
+  </form>
+</div>
+
+
+    <!-- Settings Toggle -->
+    <div id="settings-toggle">⚙️ Settings</div>
+
+    <!-- Settings Panel -->
+    <div id="settings" class="hidden">
+      <label><input type="checkbox" id="confetti-toggle" disabled /> Celebrate on completion (Pro)</label>
+      <label><input type="time" id="reset-time" value="00:00" disabled /> Daily reset time (Pro)</label>
+      <label><input type="checkbox" id="dark-mode-toggle" /> Dark Mode</label>
+      <button id="unlock-pro">Unlock Pro</button>
+    </div>
+  </div>
+
+  <!-- === Modals === -->
+
+  <!-- Motivation Prompt Modal -->
+  <div id="motivation-modal" class="modal hidden">
+    <h2>How motivated are you today?</h2>
+    <button onclick="setMotivation('high')">🙂</button>
+    <button onclick="setMotivation('medium')">😐</button>
+    <button onclick="setMotivation('low')">😫</button>
+
+    
+  </div>
+
+  <!-- Task Difficulty Prompt Modal -->
+  <div id="difficulty-modal" class="modal hidden">
+    <h2>How do you feel about this task?</h2>
+    <div class="difficulty-options">
+      <button onclick="setDifficulty(1)">🙂 Easy</button>
+      <button onclick="setDifficulty(2)">😐 Okay</button>
+      <button onclick="setDifficulty(3)">😫 Hard</button>
+    </div>
+  </div>
+
+  <!-- === Visual Effects === -->
+
+  <!-- Confetti Canvas -->
   <canvas id="confetti-canvas"></canvas>
 
+  <!-- Scripts -->
   <script src="confetti.js"></script>
   <script src="script.js"></script>
 </body>
