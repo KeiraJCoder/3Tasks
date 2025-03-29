@@ -191,17 +191,20 @@ function checkReset() {
   const now = new Date().toDateString();
   if (now !== lastReset) {
     tasks = [];
-    spoonCount = 0;
-    localStorage.setItem('spoonCount', spoonCount);
+    localStorage.setItem('spoons-tasks', JSON.stringify(tasks));
+
+    // Prompt motivation only on new day
+    showMotivationPrompt(); 
+
     lastReset = now;
     localStorage.setItem('lastReset', lastReset);
-    saveTasks();
-    showMotivationPrompt();
   } else {
+    spoonCount = parseInt(localStorage.getItem('spoonCount')) || 0;
     updateSpoonDisplay();
     spoonDisplay.classList.remove('hidden');
   }
 }
+
 
 /* ---------------------------------- */
 /* 🥳 Feedback & Visual Effects */

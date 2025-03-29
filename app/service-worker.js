@@ -8,8 +8,8 @@ self.addEventListener('install', event => {
           './app/script.js',
           './app/confetti.js',
           './app/manifest.json',
-          './app/ico-192.png',  // Add icon-192.png here
-          './app/ico-512.png'   // Add icon-512.png here
+          './app/icon-192.png',  // Add icon-192.png here
+          './app/icon-512.png'   // Add icon-512.png here
         ]);
       })
     );
